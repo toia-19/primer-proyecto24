@@ -1,16 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+// RUTA PADRE -> MÓDULO RAÌZ
 import { AppRoutingModule } from './app-routing.module';
+
+// ARCHIVO COMPONENT GENERAL
 import { AppComponent } from './app.component';
+
+// SOLO IMPORTAMOS COMPONENTES GLOBALES
+import { SharedModule } from './modules/shared/components/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
