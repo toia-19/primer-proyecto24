@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InicioComponent } from './modules/inicio/components/inicio/inicio.component';
+import { InicioComponent } from './modules/inicio/pages/inicio/inicio.component';
 
 const routes: Routes = [
   // ruta por defecto en la inicialización
