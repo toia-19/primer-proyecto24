@@ -1,17 +1,25 @@
-<mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Chanchito</mat-card-title>
-      <mat-card-subtitle>Rosado</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://i1.sndcdn.com/artworks-000190784980-i4qoly-t500x500.jpg" alt="Chanchito" width="10%">
-    <mat-card-content>
-      <p>
-        Los chanchos son rosados.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-</mat-card>  
+<div class="container">
+  <div class="row">
+    <h1>Inicio</h1>
+
+    <div class="col">
+      <div *ngFor="let i of info" class="contenido">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{i.nombre}}</mat-card-title>
+            <mat-card-subtitle>{{i.raza}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="{{i.imagen}}" alt="{{i.alt}}" width="10%">
+          <mat-card-content>
+            <p>{{i.edad}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+      </mat-card>  
+      </div>
+    </div>
+  </div>
+</div>
