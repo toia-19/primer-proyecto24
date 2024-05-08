@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 // IMPORTAMOS PARA ACCEDER A TODAS LAS RUTAS
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -23,14 +24,16 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     AppRoutingModule,
     MatIconModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
     MatIconModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule
   ]
 })
 export class SharedModule { }

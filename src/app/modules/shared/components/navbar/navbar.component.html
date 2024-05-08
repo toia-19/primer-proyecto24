@@ -3,7 +3,18 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span>My App</span>
+    <!-- Inicio de la página -->
     <button mat-button routerLink="/inicio">Inicio</button>
+
+    <!-- Productos - Menu desplegable que lleva a todas las secciones -->
+    <button mat-button [matMenuTriggerFor]="producto">Productos</button>
+    <mat-menu #producto="matMenu">
+      <button mat-menu-item routerLink="/producto">General</button>
+      <button mat-menu-item routerLink="/alimentacion">Alimentación</button>
+      <button mat-menu-item routerLink="/juguete">Juguetes</button>
+      <button mat-menu-item routerLink="/indumentaria">Indumentaria</button>
+    </mat-menu>
+
 
     <!-- BOTONES  CON ICONOS -->
     <span class="example-spacer"></span>
