@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// VISTAS DEL MÓDULO PRODUCTO
+// TODAS LAS VISTAS DEL MÓDULO PRODUCTO
 import { ProductoComponent } from './pages/producto/producto.component';
 import { AlimentacionComponent } from './pages/alimentacion/alimentacion.component';
 import { IndumentariaComponent } from './pages/indumentaria/indumentaria.component';
