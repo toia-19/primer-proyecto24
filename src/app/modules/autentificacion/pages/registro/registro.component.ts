@@ -38,8 +38,26 @@ export class RegistroComponent {
     // enviamos los nuevos registros por medio del método push a la colección
     this.coleccionUsuarios.push(credenciales);
 
+    // Notificamos al usuario el correcto registro
+    alert("Te registraste con éxito :)");
+
+    // Llamamos a la función limpiarInputs() para que se ejecute
+    this.limpiarInputs();
+
     // por consola
-    console.log(credenciales);
-    console.log(this.coleccionUsuarios)
+    // console.log(credenciales);
+    // console.log(this.coleccionUsuarios)
+  }
+
+  // Función para vaciar el formulario
+  limpiarInputs(){
+    const inputs = {
+      uid: this.usuarios.uid = '',
+      nombre: this.usuarios.nombre = '',
+      apellido: this.usuarios.apellido = '',
+      email: this.usuarios.email = '',
+      rol: this.usuarios.rol = '',
+      password: this.usuarios.password = ''
+    }
   }
 }
