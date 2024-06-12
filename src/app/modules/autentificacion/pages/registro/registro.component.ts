@@ -14,7 +14,6 @@ export class RegistroComponent {
   // input de la contraseña para ver los cáracteres o no
   hide = true;
 
-  // #################################################### Importaciones de interfaz 'Usuario'
   // IMPORTAR LA INTERFAZ DE USUARIO -> INICIALIZAR
   usuarios: Usuario = {
     uid: '', // -> inicializamos con comillas simples porque es tipo STRING
@@ -27,7 +26,6 @@ export class RegistroComponent {
 
   // CREAMOS COLECCIÓN DE USUARIOS, TIPO 'USUARIO' PARA ARRAYS
   coleccionUsuarios: Usuario[] = [];
-  // ######################################################## Fin importaciones
 
   constructor(
     public servicioAuth: AuthService,
@@ -66,18 +64,20 @@ export class RegistroComponent {
       alert("Hubo un error al registrar un nuevo usuario :( \n"+error);
     })
 
+    // Llamamos a la función limpiarInputs() para ejecutarla
+    this.limpiarInputs();
+
+    // ########################## LOCAL
     // Enviamos la nueva información como un NUEVO OBJETO a la colección de usuarios
     // this.coleccionUsuarios.push(credenciales)
 
     // Notificamos el éxito al registrarse para el usuario
-    alert("¡Te registraste con éxito! :)");
-
-    // Llamamos a la función limpiarInputs() para ejecutarla
-    this.limpiarInputs();
+    // alert("¡Te registraste con éxito! :)");
 
     // Mostramos credenciales por consola
     // console.log(credenciales);
     // console.log(this.coleccionUsuarios);
+    // ########################### FIN LOCAL
   }
 
   // Función para vaciar los inputs del formulario
