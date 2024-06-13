@@ -10,9 +10,14 @@ import { SharedModule } from './modules/shared/shared.module';
 
 // VINCULACIONES/ IMPORTACIONES CON FIREBASE
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireModule } from '@angular/fire/compat'; // Es para el Cloud Firestore
+import { AngularFireAuthModule } from '@angular/fire/compat/auth'; // Es para la Autentificación
+import { AngularFireStorageModule } from '@angular/fire/compat/storage'; // Es para la BD de archivos e imágenes
+
+/** 
+ * npm install firebase --force
+ * npm install @angular/fire --save --force
+*/
 
 @NgModule({
   declarations: [
