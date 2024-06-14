@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
+import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -9,13 +12,14 @@ import { Usuario } from 'src/app/models/usuario';
 export class InicioSesionComponent {
   hide = true;
 
-  // ####################################### LOCAL
+  /* ####################################### LOCAL
   // Definimos la propiedad local para que guarde la colección
-  public coleccionUsuariosLocal: Usuario[];
 
-  // COLECCIÓN LOCAL DE USUARIOS CON INFORMACIÓN
+  // COLECCIÓN LOCAL DE usuarioIngresado CON INFORMACIÓN
+  public coleccionusuarioIngresadoLocal: Usuario[];
+  
   constructor(){
-    this.coleccionUsuariosLocal = [
+    this.coleccionusuarioIngresadoLocal = [
       {
         uid: '',
         nombre: 'Leandro',
@@ -41,9 +45,14 @@ export class InicioSesionComponent {
         password: 'abcdef'
       }
     ]
-  }
-
+  }*/
   // ####################################### FIN LOCAL
+
+  constructor(
+    public servicioAuth: AuthService,
+    public servicioFirestore: FirestoreService,
+    public servicioRutas: Router
+  ) { }
 
   // ####################################### INGRESADO
   // Importamos la interfaz de usuario e inicializamos vacío
@@ -57,8 +66,10 @@ export class InicioSesionComponent {
   }
 
   // Función para el inicio de sesión
-  iniciarSesion(){
+  async iniciarSesion() {
+    // ############################################# LOCAL
     // Las credenciales reciben la información que se envía desde la web
+    /*
     const credenciales = {
       uid: this.usuarioIngresado.uid,
       nombre: this.usuarioIngresado.nombre,
@@ -69,13 +80,13 @@ export class InicioSesionComponent {
     }
 
     // Repetitiva para recorrer la colección local
-    for(let i = 0; i < this.coleccionUsuariosLocal.length; i++){
+    for(let i = 0; i < this.coleccionusuarioIngresadoLocal.length; i++){
       // Constante que guarde la información de la posición actual de los objetos
-      const usuarioLocal = this.coleccionUsuariosLocal[i];
+      const usuarioLocal = this.coleccionusuarioIngresadoLocal[i];
 
-      /*
+      
       Comparando uno por uno los atributos del objeto local con el que ingresa el 
-      usuario */
+      usuario 
       if(usuarioLocal.nombre === credenciales.nombre && 
         usuarioLocal.apellido === credenciales.apellido && 
         usuarioLocal.email === credenciales.email && 
@@ -90,8 +101,33 @@ export class InicioSesionComponent {
         alert("No se pudo iniciar sesión :(");
         break;
       }
+    }*/
+
+    // ############################################# FIN LOCAL
+
+    const credenciales = {
+      email: this.usuarioIngresado.email,
+      password: this.usuarioIngresado.password
     }
+
+    const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
+      .then(res => {
+        alert('¡Se ha logueado con éxito! :D');
+
+        this.servicioRutas.navigate(['/inicio']);
+      })
+      .catch(err => {
+        alert('Hubo un problema al iniciar sesión :( ' + err);
+
+        this.limpiarInputs();
+      })
   }
 
-  // ####################################### FIN INGRESADO
+  // Función para vaciar el formulario
+  limpiarInputs() {
+    const inputs = {
+      email: this.usuarioIngresado.email = '',
+      password: this.usuarioIngresado.password = ''
+    }
+  }
 }
