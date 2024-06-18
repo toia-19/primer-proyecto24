@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
+import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-iniciosesion',
@@ -10,6 +13,7 @@ export class IniciosesionComponent {
   hide = true;
   // ############################# LOCAL
   // Definimos colección local de usuarios
+  /*
   public coleccionUsuariosLocales: Usuario[];
 
   constructor(){
@@ -39,9 +43,14 @@ export class IniciosesionComponent {
         password: 'abcdef'
       }
     ]
-  }
-
+  }*/
   // ############################# FIN LOCAL
+
+  constructor(
+    public servicioAuth: AuthService,
+    public servicioFirestore: FirestoreService,
+    public servicioRutas: Router
+  ){}
 
   // ############################# INGRESADO
   // Definimos la interfaz de usuario
@@ -55,8 +64,9 @@ export class IniciosesionComponent {
   }
 
   // Función para iniciar sesión
-  iniciarSesion(){
+  async iniciarSesion(){
     // Recibe la información ingresada desde el navegador
+    /*
     const credenciales = {
       uid: this.usuarios.uid,
       nombre: this.usuarios.nombre,
@@ -64,7 +74,7 @@ export class IniciosesionComponent {
       email: this.usuarios.email,
       rol: this.usuarios.rol,
       password: this.usuarios.password
-    }
+    
 
     // Repetitiva para recorrer la colección de usuarios locales
     for(let i = 0; i < this.coleccionUsuariosLocales.length; i++){
@@ -85,18 +95,29 @@ export class IniciosesionComponent {
           alert("Ocurrió un problema al iniciar sesión :(");
           break;
         }
+    }*/
+
+    const credenciales = {
+      email: this.usuarios.email,
+      password: this.usuarios.password
     }
-    this.limpiarInputs();
+
+    const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
+    .then(res => {
+      alert('¡Se pudo ingresar con éxito :)!');
+
+      this.servicioRutas.navigate(['/inicio']);
+    })
+    .catch(err => {
+      alert('Hubo un problema al iniciar sesión :( '+ err);
+
+      this.limpiarInputs();
+    })
   }
-  // ############################# FIN INGRESADO
 
   limpiarInputs(){
     const inputs = {
-      uid: this.usuarios.uid = '',
-      nombre: this.usuarios.nombre = '',
-      apellido: this.usuarios.apellido = '',
       email: this.usuarios.email = '',
-      rol: this.usuarios.rol = '',
       password: this.usuarios.password = ''
     }
   }
