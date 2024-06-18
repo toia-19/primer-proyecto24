@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
 // importamos servicio de autentificación
 import { AuthService } from '../../services/auth.service';
+// importamos servicio de firestore
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 // importamos componente de rutas de angular
 import { Router } from '@angular/router';
 
@@ -29,6 +31,7 @@ export class RegistroComponent {
 
   constructor(
     public servicioAuth: AuthService,
+    public servicioFirestore: FirestoreService,
     public servicioRutas: Router
   ){}
 
@@ -64,6 +67,15 @@ export class RegistroComponent {
       alert("Hubo un error al registrar un nuevo usuario :( \n"+error);
     })
 
+    // Constante UID captura el identificado de la BD
+    const uid = await this.servicioAuth.obtenerUid();
+
+    // Se le asigna al atributo de la interfaz esta constante
+    this.usuarios.uid = uid;
+
+    // Llamamos a la función guardUsuario()
+    this.guardarUsuario();
+
     // Llamamos a la función limpiarInputs() para ejecutarla
     this.limpiarInputs();
 
@@ -78,6 +90,19 @@ export class RegistroComponent {
     // console.log(credenciales);
     // console.log(this.coleccionUsuarios);
     // ########################### FIN LOCAL
+  }
+
+  /* Función que accede a servicio FIRESTORE y envía la información 
+    agrega junto al UID
+  */
+  async guardarUsuario(){
+    this.servicioFirestore.agregarUsuario(this.usuarios, this.usuarios.uid)
+    .then(res => {
+      console.log(this.usuarios);
+    })
+    .catch(err => {
+      console.log('Error => ', err);
+    })
   }
 
   // Función para vaciar los inputs del formulario
