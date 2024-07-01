@@ -3,6 +3,7 @@ import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-iniciosesion',
@@ -50,7 +51,7 @@ export class IniciosesionComponent {
     public servicioAuth: AuthService,
     public servicioFirestore: FirestoreService,
     public servicioRutas: Router
-  ){}
+  ) { }
 
   // ############################# INGRESADO
   // Definimos la interfaz de usuario
@@ -64,7 +65,7 @@ export class IniciosesionComponent {
   }
 
   // Función para iniciar sesión
-  async iniciarSesion(){
+  async iniciarSesion() {
     // Recibe la información ingresada desde el navegador
     /*
     const credenciales = {
@@ -102,20 +103,46 @@ export class IniciosesionComponent {
       password: this.usuarios.password
     }
 
-    const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
-    .then(res => {
-      alert('¡Se pudo ingresar con éxito :)!');
+    try {
+      // obtenemos usuario de la BD
+      const usuarioBD = await this.servicioAuth.obtenerUsuario(credenciales.email);
 
-      this.servicioRutas.navigate(['/inicio']);
-    })
-    .catch(err => {
-      alert('Hubo un problema al iniciar sesión :( '+ err);
+      if (!usuarioBD || usuarioBD.empty) {
+        alert("Correo electrónico no registrado");
+        this.limpiarInputs();
+        return;
+      }
 
+      const usuarioDoc = usuarioBD.docs[0];
+
+      const usuarioData = usuarioDoc.data() as Usuario;
+
+      const hashedPassword = CryptoJS.SHA256(credenciales.password).toString();
+
+      if (hashedPassword !== usuarioData.password) {
+        alert("Contraseña incorrecta");
+
+        this.usuarios.password = '';
+        return;
+      }
+
+      const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
+        .then(res => {
+          alert('¡Se pudo ingresar con éxito :)!');
+
+          this.servicioRutas.navigate(['/inicio']);
+        })
+        .catch(err => {
+          alert('Hubo un problema al iniciar sesión :( ' + err);
+
+          this.limpiarInputs();
+        })
+    } catch(error){
       this.limpiarInputs();
-    })
+    }
   }
 
-  limpiarInputs(){
+  limpiarInputs() {
     const inputs = {
       email: this.usuarios.email = '',
       password: this.usuarios.password = ''
