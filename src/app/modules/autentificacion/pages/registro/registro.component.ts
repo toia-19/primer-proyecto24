@@ -88,7 +88,7 @@ export class RegistroComponent {
     // Llamamos a la función limpiarInputs() para ejecutarla
     this.limpiarInputs();
 
-    // ########################## LOCAL
+    /* ########################## LOCAL
     // Enviamos la nueva información como un NUEVO OBJETO a la colección de usuarios
     // this.coleccionUsuarios.push(credenciales)
 
@@ -98,7 +98,7 @@ export class RegistroComponent {
     // Mostramos credenciales por consola
     // console.log(credenciales);
     // console.log(this.coleccionUsuarios);
-    // ########################### FIN LOCAL
+    // ########################### FIN LOCAL*/
   }
 
   /* Función que accede a servicio FIRESTORE y envía la información 
