@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -118,7 +119,10 @@ export class InicioSesionComponent {
       // ! -> si es diferente
       // .empy -> método de Firebase para marcar si algo es vacío
       if(!usuarioBD || usuarioBD.empty){
-        alert('El correo electrónico no está registrado.');
+        Swal.fire({
+          text: "Correo electrónico no registrado",
+          icon: "error"
+        })
         this.limpiarInputs();
         return;
       }
@@ -138,7 +142,10 @@ export class InicioSesionComponent {
       const hashedPassword = CryptoJS.SHA256(credenciales.password).toString();
 
       if(hashedPassword !== usuarioData.password){
-        alert("Contraseña incorrecta");
+        Swal.fire({
+          text: "Contraseña incorrecta",
+          icon: "error"
+        })
 
         this.usuarioIngresado.password = '';
         return;
@@ -146,12 +153,18 @@ export class InicioSesionComponent {
 
       const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password)
       .then(res => {
-        alert('¡Se ha logueado con éxito! :D');
+        Swal.fire({
+          text: "¡Se ha logueado con éxito! :D",
+          icon: "success"
+        });
 
         this.servicioRutas.navigate(['/inicio']);
       })
       .catch(err => {
-        alert('Hubo un problema al iniciar sesión :( ' + err);
+        Swal.fire({
+          text: "Hubo un problema al iniciar sesión :(" + err,
+          icon: "error"
+        })
 
         this.limpiarInputs();
       })
