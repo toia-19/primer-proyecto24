@@ -15,9 +15,5 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     CommonModule,
     AppRoutingModule
   ],
-  exports: [
-    NavbarComponent,
-    FooterComponent
-  ]
 })
 export class SharedModule { }
