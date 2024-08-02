@@ -15,6 +15,8 @@ import { SharedModule } from './modules/shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    // Solo se importa el módulo SHARED porque contiene los componentes GLOBALES
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

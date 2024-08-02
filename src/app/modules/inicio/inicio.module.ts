@@ -12,6 +12,9 @@ import { InicioComponent } from './pages/inicio/inicio.component';
   imports: [
     CommonModule,
     InicioRoutingModule
+  ],
+  exports: [
+    InicioComponent
   ]
 })
 export class InicioModule { }
