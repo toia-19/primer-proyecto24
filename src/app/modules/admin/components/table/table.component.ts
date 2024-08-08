@@ -12,6 +12,12 @@ export class TableComponent {
   // Crear colección de productos del tipo producto -> lo definimos como un array
   coleccionProductos: Producto[] = [];
 
+  // Variable para manejar el estado de Edición y Eliminación de productos
+  modalVisibleProducto: boolean = false;
+
+  // Variable va a tomar el producto que nosotros elijamos
+  productoSeleccionado!: Producto; // <- recibe valores vacíos
+
   // Definimos formulario para los productos
   /**
    * Atributos alfanuméricos (string) se inicializan con comillas simples
@@ -59,5 +65,25 @@ export class TableComponent {
         alert("Hubo un problema al agregar un nuevo producto :(");
       })
     }
+  }
+
+  // Función para alertar al usuario del producto que desea eliminar
+  mostrarBorrar(productoSeleccionado: Producto){
+    // abre el modal
+    this.modalVisibleProducto = true;
+    
+    // toma los valores del producto elegido
+    this.productoSeleccionado = productoSeleccionado;
+  }
+
+  // Función para eliminar definitivamente al producto
+  borrarProducto(){
+    this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto)
+    .then(respuesta => {
+      alert("El producto se ha eliminado correctamente.")
+    })
+    .catch(error => {
+      alert("No se ha podido eliminar el producto \n"+error);
+    })
   }
 }
