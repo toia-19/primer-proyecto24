@@ -44,6 +44,10 @@ export class CrudService {
   }
 
   // EDITAR productos
+  modificarProducto(idProducto: string, nuevaData: Producto){
+    // accedemos a la colección, buscamos por ID y actualizamos información
+    return this.database.collection('producto').doc(idProducto).update(nuevaData);
+  }
 
   // ELIMINAR productos
   eliminarProducto(idProducto: string){
