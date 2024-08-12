@@ -41,9 +41,31 @@ export class CrudService {
       map => "mapea" o recorre esa nueva información
       a => resguarda la nueva información y la envía como un documento 
     */
-    return this.productosCollection.snapshotChanges().pipe(map(action => action.map(a => a.payload.doc.data())))
+    return this.productosCollection.snapshotChanges()
+    .pipe(map(action => action.map(a => a.payload.doc.data())))
   }
 
   // EDITAR productos
+  modificarProducto(idProducto: string, nuevaData: Producto){
+    /*
+      Accedemos a la colección "productos" de la Base de Datos, buscamos el ID del 
+      producto seleccionado y lo actualizamos con el método "update", enviando la 
+      nueva información
+    */
+    return this.database.collection('productos').doc(idProducto).update(nuevaData);
+  }
+
   // ELIMINAR productos
+  eliminarProducto(idProducto: string){
+    return new Promise((resolve, reject) => {
+      try{
+        const respuesta = this.productosCollection.doc(idProducto).delete();
+
+        resolve (respuesta);
+      }
+      catch(error){
+        reject (error);
+      }
+    })
+  }
 }
