@@ -41,8 +41,7 @@ export class CrudService {
       map => "mapea" o recorre esa nueva información
       a => resguarda la nueva información y la envía como un documento 
     */
-    return this.productosCollection.snapshotChanges()
-    .pipe(map(action => action.map(a => a.payload.doc.data())))
+    return this.productosCollection.snapshotChanges().pipe(map(action => action.map(a => a.payload.doc.data())))
   }
 
   // EDITAR productos
@@ -52,7 +51,7 @@ export class CrudService {
       producto seleccionado y lo actualizamos con el método "update", enviando la 
       nueva información
     */
-    return this.database.collection('productos').doc(idProducto).update(nuevaData);
+    return this.database.collection('producto').doc(idProducto).update(nuevaData);
   }
 
   // ELIMINAR productos
