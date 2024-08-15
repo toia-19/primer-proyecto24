@@ -10,12 +10,18 @@ import { IndumentariaComponent } from './pages/indumentaria/indumentaria.compone
 import { AlimentacionComponent } from './pages/alimentacion/alimentacion.component';
 import { JuguetesComponent } from './pages/juguetes/juguetes.component';
 
+// COMPONENTES LOCALES
+import { CardComponent } from './components/card/card.component';
+import { CardJuguetesComponent } from './components/card-juguetes/card-juguetes.component';
+
 @NgModule({
   declarations: [
     ProductoComponent,
     IndumentariaComponent,
     AlimentacionComponent,
-    JuguetesComponent
+    JuguetesComponent,
+    CardComponent,
+    CardJuguetesComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +31,9 @@ import { JuguetesComponent } from './pages/juguetes/juguetes.component';
     ProductoComponent,
     IndumentariaComponent,
     AlimentacionComponent,
-    JuguetesComponent
+    JuguetesComponent,
+    CardComponent,
+    CardJuguetesComponent
   ]
 })
 export class ProductoModule { }
