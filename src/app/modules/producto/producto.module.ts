@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // ARCHIVO DE RUTAS
 import { ProductoRoutingModule } from './producto-routing.module';
@@ -13,6 +14,7 @@ import { JuguetesComponent } from './pages/juguetes/juguetes.component';
 // COMPONENTES LOCALES
 import { CardComponent } from './components/card/card.component';
 import { CardJuguetesComponent } from './components/card-juguetes/card-juguetes.component';
+import { CarruselComponent } from './components/carrusel/carrusel.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +23,13 @@ import { CardJuguetesComponent } from './components/card-juguetes/card-juguetes.
     AlimentacionComponent,
     JuguetesComponent,
     CardComponent,
-    CardJuguetesComponent
+    CardJuguetesComponent,
+    CarruselComponent
   ],
   imports: [
     CommonModule,
-    ProductoRoutingModule
+    ProductoRoutingModule,
+    MatTabsModule
   ],
   exports: [
     ProductoComponent,
@@ -33,7 +37,8 @@ import { CardJuguetesComponent } from './components/card-juguetes/card-juguetes.
     AlimentacionComponent,
     JuguetesComponent,
     CardComponent,
-    CardJuguetesComponent
+    CardJuguetesComponent,
+    MatTabsModule
   ]
 })
 export class ProductoModule { }
