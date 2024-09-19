@@ -18,6 +18,10 @@ export class TableComponent {
   // Variable va a tomar el producto que nosotros elijamos
   productoSeleccionado!: Producto; // <- recibe valores vacíos
 
+  nombreImagen!: string; // Obtendrá el nombre de la imagen
+
+  imagen!: string; // Obtendrá la ruta de la imagen
+
   // Definimos formulario para los productos
   /**
    * Atributos alfanuméricos (string) se inicializan con comillas simples
@@ -28,13 +32,13 @@ export class TableComponent {
     precio: new FormControl(0, Validators.required),
     descripcion: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
-    imagen: new FormControl('', Validators.required),
+    // imagen: new FormControl('', Validators.required),
     alt: new FormControl('', Validators.required)
   })
 
-  constructor(public servicioCrud: CrudService){}
+  constructor(public servicioCrud: CrudService) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     // subscribe -> notifica constantemente los cambios actuales del sistema
     this.servicioCrud.obtenerProducto().subscribe(producto => {
       // guarda la información recibida como un nuevo "producto" a la colección
@@ -42,9 +46,9 @@ export class TableComponent {
     })
   }
 
-  async agregarProducto(){
+  async agregarProducto() {
     // validamos los valores del producto agregado
-    if(this.producto.valid){
+    if (this.producto.valid) {
       let nuevoProducto: Producto = {
         // idProducto no se toma porque es generado por la BD y no por el usuario
         idProducto: '',
@@ -53,47 +57,57 @@ export class TableComponent {
         descripcion: this.producto.value.descripcion!,
         precio: this.producto.value.precio!,
         categoria: this.producto.value.categoria!,
-        imagen: this.producto.value.imagen!,
+        // imagen ahora toma la URL generada desde Storage
+        imagen: '',
         alt: this.producto.value.alt!
       }
 
-      await this.servicioCrud.crearProducto(nuevoProducto)
-      .then(producto => {
-        alert("Ha agregado un nuevo producto con éxito :)");
+      // Enviamos nombre y url de la imagen; definimos carpeta de imágenes como "productos"
+      await this.servicioCrud.subirImagen(this.nombreImagen, this.imagen, "productos")
+        .then(resp => {
+          // Encapsulamos respuesta y envíamos la información obtenida
+          this.servicioCrud.obtenerUrlImagen(resp)
+            .then(url => {
+              // Ahora método crearProducto recibe los datos del formulario y la URL formateada
+              this.servicioCrud.crearProducto(nuevoProducto, url)
+                .then(producto => {
+                  alert("Ha agregado un nuevo producto con éxito :)");
 
-        // Limpiamos formulario para agregar nuevos productos
-        this.producto.reset();
-      })
-      .catch(error => {
-        alert("Hubo un problema al agregar un nuevo producto :(");
+                  // Limpiamos formulario para agregar nuevos productos
+                  this.producto.reset();
+                })
+                .catch(error => {
+                  alert("Hubo un problema al agregar un nuevo producto :(");
 
-        this.producto.reset();
-      })
+                  this.producto.reset();
+                })
+            })
+        })
     }
   }
 
   // Función para alertar al usuario del producto que desea eliminar
-  mostrarBorrar(productoSeleccionado: Producto){
+  mostrarBorrar(productoSeleccionado: Producto) {
     // abre el modal
     this.modalVisibleProducto = true;
-    
+
     // toma los valores del producto elegido
     this.productoSeleccionado = productoSeleccionado;
   }
 
   // Función para eliminar definitivamente al producto
-  borrarProducto(){
+  borrarProducto() {
     this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto)
-    .then(respuesta => {
-      alert("El producto se ha eliminado correctamente.")
-    })
-    .catch(error => {
-      alert("No se ha podido eliminar el producto \n"+error);
-    })
+      .then(respuesta => {
+        alert("El producto se ha eliminado correctamente.")
+      })
+      .catch(error => {
+        alert("No se ha podido eliminar el producto \n" + error);
+      })
   }
 
   // Función para seleccionar el producto a editar
-  mostrarEditar(productoSeleccionado: Producto){
+  mostrarEditar(productoSeleccionado: Producto) {
     this.productoSeleccionado = productoSeleccionado;
 
     // Enviar o "setear" los nuevos valores y reasignarlos a las variables
@@ -108,7 +122,7 @@ export class TableComponent {
     })
   }
 
-  editarProducto(){
+  editarProducto() {
     let datos: Producto = {
       // Solo el ID toma y deja igual su valor
       idProducto: this.productoSeleccionado.idProducto,
@@ -121,11 +135,11 @@ export class TableComponent {
     }
 
     this.servicioCrud.modificarProducto(this.productoSeleccionado.idProducto, datos)
-    .then(producto => {
-      alert("El producto fue modificado con éxito.");
-    })
-    .catch(error => {
-      alert("Hubo un problema al modificar el producto.");
-    })
+      .then(producto => {
+        alert("El producto fue modificado con éxito.");
+      })
+      .catch(error => {
+        alert("Hubo un problema al modificar el producto.");
+      })
   }
 }
