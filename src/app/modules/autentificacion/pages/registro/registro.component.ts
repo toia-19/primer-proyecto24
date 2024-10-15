@@ -26,7 +26,7 @@ export class RegistroComponent {
     nombre: '',
     apellido: '',
     email: '',
-    rol: '',
+    rol: 'vis', // -> todos los usuarios al registrarse serán "visitantes"
     password: ''
   }
 
@@ -42,16 +42,6 @@ export class RegistroComponent {
   // FUNCIÓN PARA EL REGISTRO DE NUEVOS USUARIOS
   async registrar(){
     // constante credenciales va a resguardar la información que ingrese el usuario
-    /* REGISTRO LOCAL
-    const credenciales = {
-      uid: this.usuarios.uid, // definimos al atributo de la interfaz con una variable local
-      nombre: this.usuarios.nombre,
-      apellido: this.usuarios.apellido,
-      email: this.usuarios.email,
-      rol: this.usuarios.rol,
-      password: this.usuarios.password
-    }*/
-
     // REGISTRO CON SERVICIO DE AUTH
     const credenciales = {
       email: this.usuarios.email,
@@ -97,18 +87,6 @@ export class RegistroComponent {
 
     // Llamamos a la función limpiarInputs() para ejecutarla
     this.limpiarInputs();
-
-    /* ########################## LOCAL
-    // Enviamos la nueva información como un NUEVO OBJETO a la colección de usuarios
-    // this.coleccionUsuarios.push(credenciales)
-
-    // Notificamos el éxito al registrarse para el usuario
-    // alert("¡Te registraste con éxito! :)");
-
-    // Mostramos credenciales por consola
-    // console.log(credenciales);
-    // console.log(this.coleccionUsuarios);
-    // ########################### FIN LOCAL*/
   }
 
   /* Función que accede a servicio FIRESTORE y envía la información 
@@ -135,7 +113,7 @@ export class RegistroComponent {
       nombre: this.usuarios.nombre = '',
       apellido: this.usuarios.apellido = '',
       email: this.usuarios.email = '',
-      rol: this.usuarios.rol = '',
+      rol: this.usuarios.rol = 'vis',
       password: this.usuarios.password = ''
     }
   }
