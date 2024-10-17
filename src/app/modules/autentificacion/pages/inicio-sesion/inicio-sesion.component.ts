@@ -5,7 +5,7 @@ import { FirestoreService } from 'src/app/modules/shared/services/firestore.serv
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import Swal from 'sweetalert2';
-7
+
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.component.html',
