@@ -27,7 +27,7 @@ export class CrudService {
   private storage = getStorage();
 
   constructor(private database: AngularFirestore) {
-    this.productosCollection = database.collection('producto');
+    this.productosCollection = database.collection('productos');
   }
 
   // CREAR productos -> obtiene datos del formulario y url de la imagen
@@ -70,7 +70,7 @@ export class CrudService {
       producto seleccionado y lo actualizamos con el método "update", enviando la 
       nueva información
     */
-    return this.database.collection('producto').doc(idProducto).update(nuevaData);
+    return this.database.collection('productos').doc(idProducto).update(nuevaData);
   }
 
   // ELIMINAR productos
