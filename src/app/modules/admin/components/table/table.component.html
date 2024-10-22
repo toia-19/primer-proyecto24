@@ -179,17 +179,17 @@
 </div>
 
 <!-- MODAL PARA ELIMINAR UN PRODUCTO -->
-<div class="modal fade" *ngIf="modalVisibleProducto" id="eliminarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="eliminarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- ENCABEZADO -->
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">¿Está seguro de eliminar el producto?</h1>
+                <h1 class="modal-title fs-5" *ngIf="modalVisibleProducto" id="exampleModalLabel">¿Está seguro de eliminar el producto?</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- CUERPO DE MODAL -->
-            <div class="modal-body">
+            <div class="modal-body" *ngIf="modalVisibleProducto">
                 {{productoSeleccionado.nombre}}
                 <img src="{{productoSeleccionado.imagen}}" alt="{{productoSeleccionado.alt}}">
             </div>
