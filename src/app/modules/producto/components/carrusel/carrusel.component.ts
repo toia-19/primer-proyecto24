@@ -27,8 +27,8 @@ export class CarruselComponent {
       this.productosCarrusel.push(producto);
 
       Swal.fire({
-        title: '¡Eso chaval!',
-        text: 'Ha añadido el producto con exito',
+        title: '¡Muy bien!',
+        text: 'Ha añadido el producto con éxito.',
         icon: 'info'
       })
     }

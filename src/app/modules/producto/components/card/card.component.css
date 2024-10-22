@@ -5,3 +5,20 @@
     justify-content: center;
     display: flex;
 }
+
+/* Tarjetas */
+.card{
+    width: 18rem;
+}
+
+.card-img-top{
+    width: 100%;
+}
+
+.modal-header{
+    justify-content: center;
+}
+
+.modal-footer{
+    justify-content: center;
+}

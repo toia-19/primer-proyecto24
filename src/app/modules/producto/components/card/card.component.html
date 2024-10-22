@@ -12,13 +12,13 @@
             </div>
         </div>
     </div>
+    
     <!-- Card para mostrar TODOS los productos que el admin ingrese a la base de datos -->
     <div class="col" *ngFor="let producto of coleccionProductos">
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <img src="{{producto.imagen}}" class="card-img-top" alt="{{producto.alt}}">
 
             <div class="card-body">
-                <h5 class="card-title">{{producto.imagen}}</h5>
                 <p class="card-text">{{producto.precio}}</p>
 
                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#verMas"
@@ -36,12 +36,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 *ngIf="modalVisible" class="modal-title fs-5" id="exampleModalLabel">{{productoSeleccionado.nombre}}</h1>
+                <h1 *ngIf="modalVisible" class="modal-title" id="exampleModalLabel">{{productoSeleccionado.nombre}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body" *ngIf="modalVisible">
-                <img src="{{productoSeleccionado.imagen}}" alt="{{productoSeleccionado.alt}}">
+                <img src="{{productoSeleccionado.imagen}}" alt="{{productoSeleccionado.alt}}" class="card-img-top">
 
                 <div class="mb-3">
                     {{productoSeleccionado.descripcion}}
