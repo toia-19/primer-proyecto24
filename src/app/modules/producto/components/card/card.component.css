@@ -1,11 +1,15 @@
 .d-block{
     height: 450px;
 }
+
 .col-lg-12{
     justify-content: center;
     display: flex;
 }
-
+.col-lg-4{
+    justify-content: center;
+    display: flex;
+}
 /* Tarjetas */
 .card{
     width: 18rem;
